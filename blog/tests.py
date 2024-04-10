@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
-from .models import Post, PostImages, Experience, About, PostTag, Tag
+from .models import Post, PostImages, Experience, About, PostTag, Tag, Category
 
 
 class BlogTests(TestCase):
@@ -12,6 +12,15 @@ class BlogTests(TestCase):
             email='someemail@gmail.com',
             password='password'
         )
+
+
+class CategoryModelTest(BlogTests):
+
+    def test_category_model(self):
+        category = Category.objects.create(
+            name='This is a test category',
+        )
+        self.assertEqual(category.name, 'This is a test category')
 
 
 class PostModelTest(BlogTests):
