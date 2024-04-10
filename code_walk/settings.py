@@ -57,6 +57,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_spectacular',
+
+    'users',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -91,7 +94,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'code_walk.wsgi.application'
 
-# AUTH_USER_MODEL = "accounts.CustomUser"
+AUTH_USER_MODEL = "users.CustomUser"
 
 
 # Database
@@ -107,12 +110,11 @@ WSGI_APPLICATION = 'code_walk.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'code_walk',
+        'NAME': 'code_walk_test',
         'USER': 'postgres',
         'PASSWORD': 'pass123',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '5432',
-        'SCHEMA': 'dev_db'
     }
 }
 
@@ -198,5 +200,9 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
