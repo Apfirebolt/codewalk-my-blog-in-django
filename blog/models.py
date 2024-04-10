@@ -20,6 +20,30 @@ class PostImages(models.Model):
 
     def __str__(self):
         return self.post.title
+    
+
+class About(models.Model):
+    content = models.TextField()
+    author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.author.username + ' about'
+
+
+class Experience(models.Model):
+    company = models.CharField(max_length=100)
+    job_title = models.CharField(max_length=100)
+    author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    description = models.TextField()
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.job_title + ' at ' + self.company
 
 
 
