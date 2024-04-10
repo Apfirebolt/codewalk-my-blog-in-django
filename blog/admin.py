@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Post, PostImages, About, Experience
+from .models import Post, PostImages, About, Experience, PostTag, Tag
 
 
 admin.site.register(Post)
 admin.site.register(PostImages)
 admin.site.register(About)
 admin.site.register(Experience)
-
+admin.site.register(PostTag)
+admin.site.register(Tag)

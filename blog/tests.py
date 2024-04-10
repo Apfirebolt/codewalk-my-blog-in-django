@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
-from .models import Post, PostImages, Experience, About
+from .models import Post, PostImages, Experience, About, PostTag, Tag
 
 
 class BlogTests(TestCase):
@@ -53,4 +53,32 @@ class ExperienceModelTest(BlogTests):
         self.assertEqual(experience.author.username, 'testuser')
         self.assertEqual(experience.description, 'This is a test experience')
         self.assertEqual(str(experience), 'Test Job at Test Company')
+
+
+class TagModelTest(BlogTests):
+    def test_tag_model(self):
+        tag = Tag.objects.create(
+            name='Test Tag',
+        )
+        self.assertEqual(tag.name, 'Test Tag')
+        self.assertEqual(str(tag), 'Test Tag')
+
+
+class PostTagModelTest(BlogTests):
+    def test_post_tag_model(self):
+        post = Post.objects.create(
+            title='This is a test post',
+            content='Just testing the post model',
+            author=self.user,
+        )
+        tag = Tag.objects.create(
+            name='Test Tag',
+        )
+        post_tag = PostTag.objects.create(
+            post=post,
+            tag=tag,
+        )
+        self.assertEqual(post_tag.post.title, 'This is a test post')
+        self.assertEqual(post_tag.tag.name, 'Test Tag')
+        self.assertEqual(str(post_tag), 'This is a test post - Test Tag')
         
