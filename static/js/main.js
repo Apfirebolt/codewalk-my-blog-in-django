@@ -2,7 +2,6 @@ $(document).ready(function() {
     console.log('Hello World');
 
     $('#solutions').click(function() {
-        console.log('Button Clicked');
 
         // apply dropdown slide effect
         $('#dropdown').slideToggle(300);
@@ -31,5 +30,4 @@ $(document).ready(function() {
             $('#mobile-menu').fadeOut(300, "linear");
         }
     });
-    
 });
