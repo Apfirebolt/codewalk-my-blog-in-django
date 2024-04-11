@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+    // Initialize AOS
+    AOS.init();
+    console.log('AOS ', AOS)
+
     $('#solutions').click(function() {
 
         // apply dropdown slide effect

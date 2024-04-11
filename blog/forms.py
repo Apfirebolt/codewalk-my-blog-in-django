@@ -93,3 +93,6 @@ class UpdateAccountSettings(forms.ModelForm):
 
         model = CustomUser
         fields = ['username', 'firstName', 'lastName', 'profile_image',]
+
+
+                                                             

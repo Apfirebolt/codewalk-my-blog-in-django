@@ -89,3 +89,13 @@ class AboutView(ListView):
     def get_queryset(self):
         qs = About.objects.filter(author_id=self.request.user.id)
         return qs
+
+
+class PostImageList(ListView):
+    model = PostImages
+    context_object_name = 'images'
+    template_name = 'posts/post_images.html'
+
+    def get_queryset(self):
+        qs = PostImages.objects.filter(post__author_id=self.request.user.id)
+        return qs
