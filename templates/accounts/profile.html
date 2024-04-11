@@ -16,7 +16,13 @@
               <!-- Contact information -->
               <div class="relative overflow-hidden py-10 px-6 bg-gradient-to-b from-teal-500 to-teal-600 sm:px-10 xl:p-12">
                 <!-- Decorative angle backgrounds -->
-                
+                {% if user.profile_image %}
+                  <img src="{{ user.profile_image.url }}" class="w-96 my-2 h-64 rounded"  alt="{{ user.username }}'s Profile Image" class="mt-4">
+                {% else %}
+                  <p class="mt-4 text-lg text-gray-500 sm:mt-3">
+                      You have not uploaded a profile image yet.
+                  </p>
+                {% endif %}
                 <div class="hidden absolute top-0 right-0 bottom-0 w-1/2 pointer-events-none sm:block lg:hidden" aria-hidden="true">
                   <svg class="absolute inset-0 w-full h-full" width="359" height="339" viewBox="0 0 359 339" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
                     <path d="M-161 382.107L546.107-325l707.103 707.107-707.103 707.103L-161 382.107z" fill="url(#linear2)" fill-opacity=".1" />
@@ -44,20 +50,26 @@
               <!-- Contact form -->
               <div class="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
                 <h3 class="text-lg font-medium text-warm-gray-900">Change Settings</h3>
-                
                 <form action="" method="POST" enctype="multipart/form-data" class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
                   {% csrf_token %}
                    
                   <div>
-                      <label for="email" class="block text-sm font-medium text-gray-700">Enter Email</label>
-                      <div class="mt-1">
-                          {{ form.email }}
-                      </div>
-                  </div>
-                  <div>
                       <label for="username" class="block text-sm font-medium text-gray-700">Enter Username</label>
                       <div class="mt-1">
                           {{ form.username }}
+                      </div>
+                  </div>
+
+                  <div>
+                      <label for="firstName" class="block text-sm font-medium text-gray-700">Enter First Name</label>
+                      <div class="mt-1">
+                          {{ form.firstName }}
+                      </div>
+                  </div>
+                  <div>
+                      <label for="lastName" class="block text-sm font-medium text-gray-700">Enter Last Name</label>
+                      <div class="mt-1">
+                          {{ form.lastName }}
                       </div>
                   </div>
 
@@ -71,7 +83,7 @@
                   {% if form.errors %}
                       <ul>
                           {% for key,value in form.errors.items %}
-                              <li class="my-1 bg-red-700 text-white px-2 py-1 shadow-sm rounded">{{ value|escape }}</li>
+                              <li class="text-red-700">{{ value|escape }}</li>
                           {% endfor %}
                       </ul>
                   {% endif %}
@@ -81,7 +93,7 @@
                       Update
                     </button>
                   </div>
-                </form>
+              </form>
               </div>
             </div>
           </div>

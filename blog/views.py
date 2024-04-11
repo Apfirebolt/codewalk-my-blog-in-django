@@ -55,7 +55,6 @@ class UpdateAccountSettings(LoginRequiredMixin, UpdateView):
     model = CustomUser
     form_class = UpdateAccountSettings
     template_name = 'accounts/profile.html'
-    context_object_name = 'user'
 
     def get_object(self, queryset=None):
         return CustomUser.objects.get(id=self.request.user.id)
