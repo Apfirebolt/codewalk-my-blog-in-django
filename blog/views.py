@@ -30,6 +30,11 @@ class LoginView(View):
     def post(self, request):
         email = request.POST['email']
         password = request.POST['password']
+        # if email or password is empty, return error
+        if not email or not password:
+            messages.add_message(self.request, messages.ERROR, 'Email and password are required fields!')
+            return HttpResponseRedirect(self.request.path_info)
+        
         user = authenticate(username=email, password=password)
         if user is not None:
             messages.add_message(self.request, messages.INFO,

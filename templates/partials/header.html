@@ -107,8 +107,8 @@
         <a href="{% url 'experience' %}" class="text-base font-medium text-gray-500 hover:text-gray-900">
           Experience
         </a>
-        <a href="#" class="text-base font-medium text-gray-500 hover:text-gray-900">
-          Company
+        <a href="{% url 'blog:list_post' %}" class="text-base font-medium text-gray-500 hover:text-gray-900">
+          Blog
         </a>
       </nav>
       {% if user.is_authenticated %}

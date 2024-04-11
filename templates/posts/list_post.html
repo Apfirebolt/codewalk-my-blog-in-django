@@ -2,49 +2,57 @@
 {% load static %}
 {% block title %} Codewalk - Post List {% endblock %}
 {% block content %}
+
 <div class="bg-white">
+
     <main>
-        <!-- Hero section -->
-        <div class="relative">
-            <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
-            <div class="max-w-10xl mx-auto sm:px-6 my-3 lg:px-8">
-                <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
-                    <div class="absolute inset-0">
-                        <img class="h-full w-full object-cover" src="{% static 'images/hero.png' %}" alt="Real Estate">
-                        <div class="absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700 mix-blend-multiply">
-                        </div>
-                    </div>
-                    <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-                        <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                            <span class="block text-white">Profile {{ request.user.email }}</span>
-                            <span class="block text-indigo-200">Page</span>
-                        </h1>
-                        <p class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
-                            List of posts
-                        </p>
-                        {% if posts %}
-
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                            {% for post in posts %}
-                            <div class="relative">
-                                <div class="relative bg-white shadow-lg rounded-lg overflow-hidden">
-                                    <div class="relative px-6 py-8">
-                                        <h3 class="text-2xl font-bold text-gray-800">{{ post.title }}</h3>
-                                        <p class="text-gray-600 mt-2">{{ post.content|safe }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="text-center">
-                                <p class="text-2xl font-bold text-gray-800">No posts available</p>
-                            </div>
-                            {% endif %}
-
-                        </div>
-                    </div>
-                </div>
+      <!-- Alternating Feature Sections -->
+      <div class="relative px-3 py-5 overflow-hidden">
+        <div class="lg:mx-auto lg:max-w-7xl px-8 py-4 lg:grid lg:grid-cols-3 lg:grid-flow-col-dense lg:gap-24">
+          <div class="col-span-2">
+  
+            <div class="px-3 py-5 flex items-center container mx-auto rounded shadow-lg bg-neutral-100">
+              <span
+                class="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600">
+                <!-- Heroicon name: outline/inbox -->
+                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                </svg>
+              </span>
+              <h2 class="text-3xl ml-2 font-extrabold tracking-tight">
+                Posts
+              </h2>
             </div>
+            {% if posts %}
+  
+            <div class="grid grid-cols-1 gap-6">
+              {% for post in posts %}
+              <div class="relative">
+                <div class="relative bg-white shadow-lg rounded-lg overflow-hidden">
+                  <div class="relative px-6 py-8">
+                    <h3 class="text-2xl font-bold text-gray-800">{{ post.title }}</h3>
+                    <p class="text-gray-600 mt-2">{{ post.content|safe }}</p>
+                  </div>
+                </div>
+              </div>
+             
+              {% endfor %}
+              {% else %}
+              <div class="text-center">
+                <p class="text-2xl font-bold text-gray-800">No posts available</p>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <div>
+            <p>
+                Latest posts
+            </p>
+          </div>
+        </div>
+      </div>
     </main>
-</div>
-{% endblock %}
+  </div>
+  {% endblock %}
