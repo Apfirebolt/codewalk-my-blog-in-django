@@ -19,6 +19,7 @@ class UserRegistrationForm(forms.ModelForm):
     email = forms.EmailField(label=("Please Enter Your Email"),
                              widget=forms.TextInput(attrs={'class': 'block w-full py-3 px-2 shadow-sm sm:text-sm focus:ring-grape-500 focus:border-grape-500 border-gray-300 rounded-md'}))
     profile_image = forms.ImageField(label=("Please Upload Your Profile Image"),
+                                     required=False,
                                     widget=forms.FileInput(attrs={'class': 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'}),
                                     validators=[FileExtensionValidator(['png', 'jpg'])])
 
@@ -46,8 +47,11 @@ class UserRegistrationForm(forms.ModelForm):
         return username
     
     def clean_profile_image(self):
-        # if size of profile image is > 2 MB return error
+        # if profile image is not uploaded, return None
         profile_image = self.cleaned_data.get('profile_image')
+        if not profile_image:
+            return None
+        # if size of profile image is > 2 MB return error
         if profile_image.size > 2097152:
             raise forms.ValidationError("Image file too large ( > 2mb )")
         return profile_image
