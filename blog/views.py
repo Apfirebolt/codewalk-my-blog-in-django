@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, ListView, FormView, View
+from django.views.generic import DetailView, ListView, FormView, View, UpdateView
 from .models import Post, PostImages, Experience, About
-from .forms import UserRegistrationForm
+from users.models import CustomUser
+from .forms import UserRegistrationForm, UpdateAccountSettings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
@@ -47,6 +49,25 @@ class LoginView(View):
 
     def get(self, request):
         return render(request, 'accounts/login.html', {})
+    
+
+class UpdateAccountSettings(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    form_class = UpdateAccountSettings
+    template_name = 'accounts/profile.html'
+    context_object_name = 'user'
+
+    def get_object(self, queryset=None):
+        return CustomUser.objects.get(id=self.request.user.id)
+
+    def form_valid(self, form):
+        # perform a action here
+        user_obj = form.save(commit=False)
+        user_obj.staff = False
+        user_obj.admin = False
+        user_obj.save()
+        messages.add_message(self.request, messages.INFO, 'You have successfully updated your account settings')
+        return HttpResponseRedirect(reverse('home'))
 
 
 class DetailPostView(DetailView):

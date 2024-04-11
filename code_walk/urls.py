@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from code_walk import settings
 from django.views.generic import TemplateView
 import django.contrib.auth.views as AuthViews
-from blog.views import ExperienceList, AboutView, RegisterUser, LoginView
+from blog.views import ExperienceList, AboutView, RegisterUser, LoginView, UpdateAccountSettings
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
@@ -31,6 +31,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', AuthViews.LogoutView.as_view(), name='logout'),
     path('register/', RegisterUser.as_view(), name='register'),
+    path('update-account/', UpdateAccountSettings.as_view(), name='update-account'),
     path('blog/', include('blog.urls'), name='blog'),
 ]
 

@@ -30,6 +30,7 @@ class Post(models.Model):
 class PostImages(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/')
+    title = models.CharField(max_length=100, null=True, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
