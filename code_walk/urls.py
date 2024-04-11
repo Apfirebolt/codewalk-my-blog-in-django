@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from code_walk import settings
 from django.views.generic import TemplateView
-from blog.views import ExperienceList, AboutView
+from blog.views import ExperienceList, AboutView, RegisterUser, LoginView
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
@@ -27,7 +27,8 @@ urlpatterns = [
     path('accounts/profile/', TemplateView.as_view(template_name='accounts/profile.html'), name='profile'),
     path('about/', AboutView.as_view(), name='about'),
     path('experience/', ExperienceList.as_view(), name='experience'),
-    path('login/', TemplateView.as_view(template_name='accounts/login.html'), name='login'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('register/', RegisterUser.as_view(), name='register'),
     path('blog/', include('blog.urls')),
 ]
 

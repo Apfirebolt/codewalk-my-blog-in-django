@@ -22,6 +22,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name_plural = 'Posts'
 
 
 class PostImages(models.Model):
@@ -31,6 +34,9 @@ class PostImages(models.Model):
 
     def __str__(self):
         return self.post.title
+
+    class Meta:
+        verbose_name_plural = 'Post Images'
     
 
 class Tag(models.Model):
@@ -40,6 +46,9 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name_plural = 'Tags'
 
 
 class PostTag(models.Model):
@@ -50,6 +59,10 @@ class PostTag(models.Model):
 
     def __str__(self):
         return self.post.title + ' - ' + self.tag.name
+
+    class Meta:
+        unique_together = ('post', 'tag')
+        verbose_name_plural = 'Post Tags'
     
 
 class About(models.Model):
@@ -59,11 +72,15 @@ class About(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.author.username + ' about'
+        return self.author.email + ' - ' + self.content.strip()[:50]
+    
+    class Meta:
+        verbose_name_plural = 'About'
 
 
 class Experience(models.Model):
     company = models.CharField(max_length=100)
+    location = models.CharField(max_length=100, null=True, blank=True)
     job_title = models.CharField(max_length=100)
     author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     description = models.TextField()
@@ -74,6 +91,9 @@ class Experience(models.Model):
 
     def __str__(self):
         return self.job_title + ' at ' + self.company
+    
+    class Meta:
+        verbose_name_plural = 'Experiences'
 
 
 
