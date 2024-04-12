@@ -33,6 +33,7 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(), name='register'),
     path('update-account/', UpdateAccountSettings.as_view(), name='update-account'),
     path('blog/', include('blog.urls'), name='blog'),
+    path('api/', include('api.urls'), name='api'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

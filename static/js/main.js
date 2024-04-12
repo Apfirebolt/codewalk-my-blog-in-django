@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    // Initialize AOS
+    // Initialize AOS, AOS does not seem to work with Safari, maybe Jquery is the issue
     AOS.init();
     console.log('AOS ', AOS)
 
