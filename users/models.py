@@ -38,6 +38,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+    @property
+    def full_name(self):
+        return f'{self.firstName} {self.lastName}'
 
     class Meta:
         '''Doc string for meta'''
