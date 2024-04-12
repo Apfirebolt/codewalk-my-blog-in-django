@@ -1,5 +1,5 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
-from . serializers import  CustomUserSerializer, CustomTokenObtainPairSerializer, ListCustomUsersSerializer
+from . serializers import  CustomUserSerializer, CustomTokenObtainPairSerializer, ListCustomUsersSerializer, AboutSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from users.models import CustomUser
 from rest_framework import viewsets
 from .serializers import CategorySerializer
-from blog.models import Category
+from blog.models import Category, About, Experience
 
 
 
@@ -31,4 +31,10 @@ class ListCustomUsersApiView(ListAPIView):
 class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
+    permission_classes = [IsAuthenticated]
+
+
+class AboutViewSet(viewsets.ModelViewSet):
+    serializer_class = AboutSerializer
+    queryset = About.objects.all()
     permission_classes = [IsAuthenticated]

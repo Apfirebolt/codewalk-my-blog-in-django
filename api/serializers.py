@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from users.models import CustomUser
-from blog.models import Category, Post, PostImages, Tag, PostTag
+from blog.models import Category, Post, PostImages, Tag, PostTag, About, Experience
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -73,3 +73,22 @@ class CategorySerializer(serializers.ModelSerializer):
         if nameExists:
             raise serializers.ValidationError('Category with this name already exists')
         return value
+    
+
+class AboutSerializer(serializers.ModelSerializer):
+    author_email = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = About
+        fields = '__all__'
+        read_only_fields = ['author']
+
+    def create(self, validated_data):
+        # Get the user from the context
+        author = self.context['request'].user
+        about = About.objects.create(author=author, **validated_data)
+        return about
+
+
+    def get_author_email(self, obj):
+        return obj.author.email
