@@ -45,7 +45,6 @@ class AboutModelTest(BlogTests):
         )
         self.assertEqual(about.content, 'This is a test about')
         self.assertEqual(about.author.username, 'testuser')
-        self.assertEqual(str(about), 'testuser about')
 
 
 

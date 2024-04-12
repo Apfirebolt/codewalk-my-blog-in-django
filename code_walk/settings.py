@@ -59,9 +59,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_spectacular',
 
+    'api',
     'users',
     'blog',
-    'api'
 ]
 
 MIDDLEWARE = [

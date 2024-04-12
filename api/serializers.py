@@ -58,6 +58,13 @@ class ListCustomUsersSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'id', 'is_staff')
 
 
+class CustomUserDetailsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomUser
+        fields = ('id', 'email', 'username', 'firstName', 'lastName', 'is_active', 'is_staff', 'profile_image', 'is_superuser')
+
+
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:

@@ -1,5 +1,5 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
-from . serializers import  CustomUserSerializer, CustomTokenObtainPairSerializer, ListCustomUsersSerializer, AboutSerializer \
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
+from . serializers import  CustomUserSerializer, CustomUserDetailsSerializer, CustomTokenObtainPairSerializer, ListCustomUsersSerializer, AboutSerializer \
     , ExperienceSerializer, ListPostsSerializer, TagSerializer, PostTagSerializer 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -27,6 +27,16 @@ class ListCustomUsersApiView(ListAPIView):
     serializer_class = ListCustomUsersSerializer
     queryset = CustomUser.objects.all()
     permission_classes = [IsAuthenticated]
+
+
+class ProfileView(RetrieveAPIView):
+    serializer_class = CustomUserDetailsSerializer
+    queryset = CustomUser.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    # get the data of logged in user
+    def get_object(self):
+        return self.request.user
     
 
 class CategoryViewSet(viewsets.ModelViewSet):
