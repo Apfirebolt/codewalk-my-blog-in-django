@@ -92,3 +92,28 @@ class AboutSerializer(serializers.ModelSerializer):
 
     def get_author_email(self, obj):
         return obj.author.email
+    
+
+class ExperienceSerializer(serializers.ModelSerializer):
+    author_email = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Experience
+        fields = '__all__'
+        read_only_fields = ['author']
+
+    def create(self, validated_data):
+        # Get the user from the context
+        author = self.context['request'].user
+        experience = Experience.objects.create(author=author, **validated_data)
+        return experience
+
+    def get_author_email(self, obj):
+        return obj.author.email
+
+
+class ListPostsSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Post
+        fields = ['id', 'title', 'content', 'created_at', 'updated_at']
