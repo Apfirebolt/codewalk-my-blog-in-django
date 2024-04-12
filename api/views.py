@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from . serializers import  CustomUserSerializer, CustomTokenObtainPairSerializer, ListCustomUsersSerializer, AboutSerializer \
-    , ExperienceSerializer, ListPostsSerializer
+    , ExperienceSerializer, ListPostsSerializer, TagSerializer, PostTagSerializer 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
@@ -8,7 +8,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from users.models import CustomUser
 from rest_framework import viewsets
 from .serializers import CategorySerializer
-from blog.models import Category, About, Experience, Post
+from blog.models import Category, About, Experience, Post, Tag, PostTag, PostImages
 
 
 
@@ -91,3 +91,15 @@ class RetrieveUpdateDestroyPostApiView(RetrieveUpdateDestroyAPIView):
     def get_object(self):
         obj = super().get_object()
         return obj
+    
+
+class TagViewSet(viewsets.ModelViewSet):
+    serializer_class = TagSerializer
+    queryset = Tag.objects.all()
+    permission_classes = [IsAuthenticated]
+
+
+class PostTagViewSet(viewsets.ModelViewSet):
+    serializer_class = PostTagSerializer
+    queryset = PostTag.objects.all()
+    permission_classes = [IsAuthenticated]

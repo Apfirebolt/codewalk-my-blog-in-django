@@ -2,7 +2,6 @@ from rest_framework import serializers
 from users.models import CustomUser
 from blog.models import Category, Post, PostImages, Tag, PostTag, About, Experience
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
@@ -113,7 +112,61 @@ class ExperienceSerializer(serializers.ModelSerializer):
 
 
 class ListPostsSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Post
         fields = ['id', 'title', 'content', 'created_at', 'updated_at']
+
+
+class PostTagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PostTag
+        fields = '__all__'
+
+    # if a post is already linked to tag return error
+    def validate(self, data):
+        post = data['post']
+        tag = data['tag']
+        post_tag = PostTag.objects.filter(post=post, tag=tag)
+        if post_tag:
+            raise serializers.ValidationError('Post is already linked to this tag')
+        return data
+
+
+class PostImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PostImages
+        fields = '__all__'
+
+    def create(self, validated_data):
+        post = validated_data['post']
+        image = validated_data['image']
+        title = validated_data['title']
+        post_image = PostImages.objects.create(post=post, image=image, title=title)
+        return post_image
+    
+
+    def validate_image(self, value):
+        if value.size > 1024 * 1024 * 2:
+            raise serializers.ValidationError('Image size should not exceed 2MB')
+        return value
+    
+
+
+class TagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tag
+        fields = '__all__'
+
+    def validate_name(self, value):
+        if len(value) < 3:
+            raise serializers.ValidationError('Tag name must be at least 3 characters long')
+        nameExists = Tag.objects.filter(name=value)
+        if nameExists:
+            raise serializers.ValidationError('Tag with this name already exists')
+        return value
+
+    
