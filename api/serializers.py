@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from users.models import CustomUser
+from blog.models import Category, Post, PostImages, Tag, PostTag
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
@@ -49,3 +51,25 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
+
+class ListCustomUsersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'id', 'is_staff')
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+    
+    def validate_name(self, value):
+        if len(value) < 3:
+            raise serializers.ValidationError('Category name must be at least 3 characters long')
+        nameExists = Category.objects.filter(name=value)
+        if nameExists:
+            raise serializers.ValidationError('Category with this name already exists')
+        return value

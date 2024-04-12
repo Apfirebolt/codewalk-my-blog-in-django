@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -154,8 +155,8 @@ USE_L10N = True
 USE_TZ = True
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Social Membership API',
-    'DESCRIPTION': 'API for Social Membership',
+    'TITLE': 'Codewalk API',
+    'DESCRIPTION': 'API for Social my Blogging Platform',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': True,
     # OTHER SETTINGS
@@ -168,6 +169,15 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 50,
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    
+
+    "AUTH_HEADER_TYPES": ("Bearer", ),
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
 }
 
 # Static files (CSS, JavaScript, Images)
