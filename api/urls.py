@@ -4,7 +4,7 @@ from .views import ListCustomUsersApiView, CreateCustomUserApiView, CustomTokenO
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView
 from . views import ListCustomUsersApiView, CreateCustomUserApiView, ProfileView, CustomTokenObtainPairView, CategoryViewSet, AboutViewSet \
-    , ExperienceViewSet, ListPostApiView, CreatePostApiView, PostTagViewSet
+    , ExperienceViewSet, ListPostApiView, CreatePostApiView, PostTagViewSet, TagViewSet
     
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
@@ -17,6 +17,7 @@ router.register(r'categories', CategoryViewSet, basename='category')
 router.register(r'about', AboutViewSet, basename='about')
 router.register(r'experience', ExperienceViewSet, basename='experience')
 router.register(r'post-tags', PostTagViewSet, basename='post-tags')
+router.register(r'tags', TagViewSet, basename='tags')
 
 
 urlpatterns = [
