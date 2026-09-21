@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from code_walk import settings
 from django.views.generic import TemplateView
 import django.contrib.auth.views as AuthViews
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from blog.views import ExperienceList, AboutView, RegisterUser, LoginView, UpdateAccountSettings
 
 urlpatterns = [
@@ -34,6 +35,9 @@ urlpatterns = [
     path('update-account/', UpdateAccountSettings.as_view(), name='update-account'),
     path('blog/', include('blog.urls'), name='blog'),
     path('api/', include('api.urls'), name='api'),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
