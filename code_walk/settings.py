@@ -181,6 +181,13 @@ SIMPLE_JWT = {
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
 }
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Codewalk API',
+    'DESCRIPTION': 'API documentation for your personal blog and workspace project',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
